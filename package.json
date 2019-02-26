@@ -3,6 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@pluralsight/ps-design-system-button": "^10.11.7",
+    "@pluralsight/ps-design-system-dialog": "^3.0.2",
+    "@pluralsight/ps-design-system-switch": "^1.6.7",
+    "@pluralsight/ps-design-system-table": "^2.0.0",
+    "glamor": "^2.20.40",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "react-scripts": "2.1.5"

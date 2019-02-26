@@ -1,28 +1,65 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Button from "@pluralsight/ps-design-system-button/react";
+import { createPortal } from "react-dom";
+import Dialog from "@pluralsight/ps-design-system-dialog/react";
+import React, { Component, useState } from "react";
+import Switch from "@pluralsight/ps-design-system-switch/react";
+import Table from "@pluralsight/ps-design-system-table/react";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+function toggleSelections(selections, i) {
+  return [
+    ...selections.slice(0, i),
+    !selections[i],
+    ...selections.slice(i + 1)
+  ];
+}
+
+function Picker() {
+  const [selections, setSelection] = useState([false, false, false]);
+  return (
+    <div>
+      <Table style={{ minWidth: "300px" }}>
+        {selections.map((selection, i) => (
+          <Table.Row key={i}>
+            <Table.Cell>Option {i}</Table.Cell>
+            <Table.Cell
+              align={Table.aligns.right}
+              style={{ paddingRight: "8px" }}
+            >
+              <Switch
+                size={Switch.sizes.small}
+                checked={selection}
+                onClick={() => setSelection(toggleSelections(selections, i))}
+              />
+            </Table.Cell>
+          </Table.Row>
+        ))}
+      </Table>
+    </div>
+  );
+}
+
+function App() {
+  const [isOpen, toggleOpen] = useState(false);
+  const [el] = useState(document.getElementById("portal"));
+  return (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh"
+      }}
+    >
+      <Button onClick={_ => toggleOpen(!isOpen)}>Open Dialog in portal</Button>
+      {isOpen &&
+        createPortal(
+          <Dialog aria-label="Options to switch" modal onClose={() => toggleOpen(false)}>
+            <Picker />
+          </Dialog>,
+          el
+        )}
+    </div>
+  );
 }
 
 export default App;
