@@ -1,7 +1,7 @@
 import Button from "@pluralsight/ps-design-system-button/react";
 import { createPortal } from "react-dom";
 import Dialog from "@pluralsight/ps-design-system-dialog/react";
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import Switch from "@pluralsight/ps-design-system-switch/react";
 import Table from "@pluralsight/ps-design-system-table/react";
 
@@ -13,8 +13,8 @@ function toggleSelections(selections, i) {
   ];
 }
 
-function Picker() {
-  const [selections, setSelection] = useState([false, false, false]);
+function Picker(props) {
+  const { onSwitch, selections } = props;
   return (
     <div>
       <Table style={{ minWidth: "300px" }}>
@@ -28,7 +28,7 @@ function Picker() {
               <Switch
                 size={Switch.sizes.small}
                 checked={selection}
-                onClick={() => setSelection(toggleSelections(selections, i))}
+                onClick={() => onSwitch(toggleSelections(selections, i))}
               />
             </Table.Cell>
           </Table.Row>
@@ -41,6 +41,7 @@ function Picker() {
 function App() {
   const [isOpen, toggleOpen] = useState(false);
   const [el] = useState(document.getElementById("portal"));
+  const [selections, setSelection] = useState([false, false, false]);
   return (
     <div
       style={{
@@ -53,8 +54,12 @@ function App() {
       <Button onClick={_ => toggleOpen(!isOpen)}>Open Dialog in portal</Button>
       {isOpen &&
         createPortal(
-          <Dialog aria-label="Options to switch" modal onClose={() => toggleOpen(false)}>
-            <Picker />
+          <Dialog
+            aria-label="Options to switch"
+            modal
+            onClose={() => toggleOpen(false)}
+          >
+            <Picker onSwitch={setSelection} selections={selections} />
           </Dialog>,
           el
         )}
