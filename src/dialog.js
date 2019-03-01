@@ -38,11 +38,7 @@ const styles = {
     backgroundColor: `rgba(0,0,0,0.5)`,
     display: "flex",
     justifyContent: "center",
-    alignItems: "center",
-    opacity: 0,
-    animation: `${fade || "psds-dialog__keyframes__fade"} ${
-      core.motion.speedFast
-    } ease-out forwards`
+    alignItems: "center"
   }),
   close: css({
     position: "absolute",

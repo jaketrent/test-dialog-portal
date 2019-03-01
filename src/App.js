@@ -1,9 +1,11 @@
 import Button from "@pluralsight/ps-design-system-button/react";
 import { createPortal } from "react-dom";
-import Dialog from "@pluralsight/ps-design-system-dialog/react";
+// import Dialog from "@pluralsight/ps-design-system-dialog/react";
 import React, { useState } from "react";
 import Switch from "@pluralsight/ps-design-system-switch/react";
 import Table from "@pluralsight/ps-design-system-table/react";
+
+import Dialog from "./dialog.js";
 
 function toggleSelections(selections, i) {
   return [
